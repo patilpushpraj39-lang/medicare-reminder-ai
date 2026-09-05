@@ -1,3 +1,4 @@
+# Fresh deployment run after adding Supabase secrets
 name: Deploy Medicare Reminder AI to GitHub Pages
 
 on:
