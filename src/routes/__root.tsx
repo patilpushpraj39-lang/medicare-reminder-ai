@@ -14,6 +14,41 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "sonner";
 
+const BASE_PATH = "/medicare-reminder-ai/";
+
+const cacheRecoveryScript = `
+(() => {
+  const current = new URL(window.location.href);
+  const alreadyRecovered = current.searchParams.has("__fresh");
+
+  const reloadFresh = () => {
+    if (alreadyRecovered) return;
+    const next = new URL(window.location.href);
+    next.searchParams.set("__fresh", Date.now().toString());
+    window.location.replace(next.toString());
+  };
+
+  window.addEventListener("error", (event) => {
+    const target = event.target;
+    if (target && (target.tagName === "SCRIPT" || target.tagName === "LINK")) {
+      reloadFresh();
+    }
+  }, true);
+
+  window.addEventListener("unhandledrejection", (event) => {
+    const reason = event.reason;
+    const message = String((reason && reason.message) || reason || "");
+    if (/Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk|ChunkLoadError/i.test(message)) {
+      reloadFresh();
+    }
+  });
+
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) window.location.reload();
+  });
+})();
+`;
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -63,7 +98,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             Try again
           </button>
           <a
-            href="/"
+            href={BASE_PATH}
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
             Go home
@@ -91,7 +126,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: `${BASE_PATH}favicon.ico`, type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" },
@@ -108,6 +143,10 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
+        <script dangerouslySetInnerHTML={{ __html: cacheRecoveryScript }} />
       </head>
       <body>
         {children}
