@@ -8,14 +8,22 @@ export default defineConfig({
       basepath: "/medicare-reminder-ai",
     },
 
+    pages: [{ path: "/" }, { path: "/auth" }, { path: "/reset-password" }],
+
+    prerender: {
+      enabled: true,
+      crawlLinks: false,
+    },
+
     server: {
       preset: "vercel",
     },
 
     spa: {
       enabled: true,
+      maskPath: "/dashboard",
       prerender: {
-        outputPath: "/index.html",
+        outputPath: "/_shell",
       },
     },
   },
