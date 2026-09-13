@@ -42,22 +42,6 @@ function AuthPage() {
     });
   }, [navigate]);
 
-  const handleGoogle = async () => {
-    setLoading(true);
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${APP_URL()}/dashboard`,
-        },
-      });
-      if (error) throw error;
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Sign-in failed");
-      setLoading(false);
-    }
-  };
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
@@ -139,28 +123,6 @@ function AuthPage() {
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
 
-        {mode !== "forgot" && (
-          <>
-            <button
-              onClick={handleGoogle}
-              disabled={loading}
-              className="mt-6 flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-background/60 px-4 py-3 text-sm font-medium transition-colors hover:bg-background disabled:opacity-60"
-            >
-              <svg className="h-4 w-4" viewBox="0 0 24 24">
-                <path
-                  fill="#EA4335"
-                  d="M12 10.2v3.8h5.4c-.2 1.4-1.6 4-5.4 4-3.2 0-5.9-2.7-5.9-6s2.6-6 5.9-6c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.7 3.5 14.6 2.5 12 2.5 6.8 2.5 2.6 6.8 2.6 12s4.2 9.5 9.4 9.5c5.4 0 9-3.8 9-9.2 0-.6-.1-1.1-.2-1.6H12z"
-                />
-              </svg>
-              Continue with Google
-            </button>
-            <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-              <span className="h-px flex-1 bg-border" /> or with email{" "}
-              <span className="h-px flex-1 bg-border" />
-            </div>
-          </>
-        )}
-
         <AnimatePresence mode="wait">
           <motion.form
             key={mode}
@@ -169,7 +131,7 @@ function AuthPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="space-y-3"
+            className="mt-6 space-y-3"
           >
             {mode === "signup" && (
               <label className="block">

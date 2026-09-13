@@ -8,7 +8,7 @@ MediCare Reminder AI is a responsive medication-management web application. Sign
 
 ## Features
 
-- Email/password authentication and optional Google OAuth through Supabase
+- Email/password authentication through Supabase
 - Add, edit, search, and delete medicines
 - Multiple daily reminder times, treatment dates, dosage, quantity, food timing, doctor, and notes
 - Real dose history stored in PostgreSQL
