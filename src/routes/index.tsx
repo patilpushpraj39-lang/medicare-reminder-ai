@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  Bell,
   BellRing,
   Bot,
   CalendarCheck,
@@ -11,12 +10,9 @@ import {
   Pill,
   ShieldCheck,
   Sparkles,
-  Users,
   Play,
   ArrowRight,
-  Mail,
-  MapPin,
-  Phone,
+  Github,
 } from "lucide-react";
 import { useState } from "react";
 import heroImage from "@/assets/hero-medicine.jpg";
@@ -35,7 +31,6 @@ function Nav() {
   const links = [
     { href: "#features", label: "Features" },
     { href: "#how", label: "How it works" },
-    { href: "#testimonials", label: "Reviews" },
     { href: "#faq", label: "FAQ" },
     { href: "#contact", label: "Contact" },
   ];
@@ -46,17 +41,28 @@ function Nav() {
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-md">
             <Pill className="h-5 w-5" />
           </span>
-          <span className="font-display text-lg font-bold tracking-tight">MediCare<span className="text-gold"> AI</span></span>
+          <span className="font-display text-lg font-bold tracking-tight">
+            MediCare<span className="text-gold"> AI</span>
+          </span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
               {l.label}
             </a>
           ))}
         </div>
         <div className="hidden items-center gap-3 md:flex">
-          <Link to="/auth" className="text-sm font-medium text-muted-foreground hover:text-foreground">Sign in</Link>
+          <Link
+            to="/auth"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
+            Sign in
+          </Link>
           <Link
             to="/auth"
             search={{ mode: "signup" as const }}
@@ -73,11 +79,18 @@ function Nav() {
         <div className="border-t border-border/40 bg-background/95 px-6 py-4 md:hidden">
           <div className="flex flex-col gap-3">
             {links.map((l) => (
-              <a key={l.href} href={l.href} className="text-sm text-muted-foreground" onClick={() => setOpen(false)}>
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-sm text-muted-foreground"
+                onClick={() => setOpen(false)}
+              >
                 {l.label}
               </a>
             ))}
-            <Link to="/auth" className="text-sm font-semibold">Sign in</Link>
+            <Link to="/auth" className="text-sm font-semibold">
+              Sign in
+            </Link>
           </div>
         </div>
       )}
@@ -91,7 +104,7 @@ function Hero() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
         <motion.div initial="hidden" animate="show" variants={fadeUp}>
           <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
-            <Sparkles className="h-3.5 w-3.5 text-gold" /> AI-powered health companion
+            <Sparkles className="h-3.5 w-3.5 text-gold" /> Your private medication companion
           </span>
           <h1 className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
             Never Miss Your
@@ -100,7 +113,8 @@ function Hero() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            AI-powered medicine reminders with smart notifications, caregiver alerts, health tracking, and complete medication history — beautifully designed for daily care.
+            Build a clear medicine schedule, receive browser reminders, record every dose, and
+            review your adherence in one private care dashboard.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
@@ -111,17 +125,27 @@ function Hero() {
               Get Started
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-6 py-3 text-sm font-semibold backdrop-blur transition-colors hover:bg-background">
+            <a
+              href="#how"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-6 py-3 text-sm font-semibold backdrop-blur transition-colors hover:bg-background"
+            >
               <Play className="h-4 w-4" /> Watch Demo
             </a>
           </div>
           <div className="mt-10 flex items-center gap-6 text-sm text-muted-foreground">
             <div className="flex -space-x-2">
               {["#0d7a5f", "#c9a84c", "#064e3b"].map((c) => (
-                <div key={c} className="h-8 w-8 rounded-full border-2 border-background" style={{ background: c }} />
+                <div
+                  key={c}
+                  className="h-8 w-8 rounded-full border-2 border-background"
+                  style={{ background: c }}
+                />
               ))}
             </div>
-            <span>Trusted by <span className="font-semibold text-foreground">12,000+</span> patients & caregivers</span>
+            <span>
+              Designed for <span className="font-semibold text-foreground">simple, reliable</span>{" "}
+              daily medication routines
+            </span>
           </div>
         </motion.div>
 
@@ -174,21 +198,55 @@ function Hero() {
 }
 
 const features = [
-  { icon: BellRing, title: "Smart Reminders", desc: "Push, email, and browser notifications that adapt to your schedule." },
-  { icon: Bot, title: "AI Health Assistant", desc: "Explains medicines, side effects, and drug interactions in plain language." },
-  { icon: HeartPulse, title: "Health Tracking", desc: "Track BP, sugar, weight, water, and heart rate in one place." },
-  { icon: Users, title: "Caregiver Alerts", desc: "Auto-notify family if a critical dose is missed." },
-  { icon: CalendarCheck, title: "Appointments", desc: "Doctor visits, refill reminders, and prescription uploads." },
-  { icon: ShieldCheck, title: "Private & Secure", desc: "End-to-end row-level security. Your data stays yours." },
+  {
+    icon: BellRing,
+    title: "Browser Reminders",
+    desc: "Opt in to receive reminders at each saved medicine time while the site is open.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Flexible Schedules",
+    desc: "Save one or several daily reminder times, treatment dates, dosage, and food timing.",
+  },
+  {
+    icon: HeartPulse,
+    title: "Dose History",
+    desc: "Mark doses taken or missed and review your actual seven-day adherence.",
+  },
+  {
+    icon: Bot,
+    title: "Safety Assistant",
+    desc: "Read your saved schedule and get safe guidance on when to contact a healthcare professional.",
+  },
+  {
+    icon: Pill,
+    title: "Medicine Management",
+    desc: "Add, edit, search, and remove medicines from a focused care dashboard.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Private Account",
+    desc: "Row-level database policies keep each user's medicines and dose logs separate.",
+  },
 ];
 
 function Features() {
   return (
     <section id="features" className="mx-auto max-w-7xl px-6 py-24">
-      <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="mx-auto max-w-2xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-primary">Everything you need</p>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeUp}
+        className="mx-auto max-w-2xl text-center"
+      >
+        <p className="text-sm font-semibold uppercase tracking-widest text-primary">
+          Everything you need
+        </p>
         <h2 className="mt-3 text-3xl font-bold sm:text-4xl">A complete medication companion</h2>
-        <p className="mt-4 text-muted-foreground">Beautifully crafted tools that make medication routine effortless.</p>
+        <p className="mt-4 text-muted-foreground">
+          Beautifully crafted tools that make medication routine effortless.
+        </p>
       </motion.div>
       <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f, i) => (
@@ -213,17 +271,34 @@ function Features() {
 }
 
 const steps = [
-  { n: "01", title: "Add your medicines", desc: "Snap a prescription or add manually with dosage, frequency, and food timing." },
-  { n: "02", title: "Set your reminders", desc: "Choose daily, weekly, or custom schedules across all your devices." },
-  { n: "03", title: "Stay on track", desc: "Get gentle nudges, ask the AI anything, and watch your adherence grow." },
+  {
+    n: "01",
+    title: "Add your medicines",
+    desc: "Enter the name, prescribed dosage, treatment dates, and food instructions.",
+  },
+  {
+    n: "02",
+    title: "Set your reminders",
+    desc: "Choose one or more daily times and enable browser notifications if you want them.",
+  },
+  {
+    n: "03",
+    title: "Record every dose",
+    desc: "Mark doses taken or missed and follow your seven-day adherence history.",
+  },
 ];
 
 function HowItWorks() {
   return (
-    <section id="how" className="relative border-y border-border/50 bg-gradient-to-b from-secondary/40 to-background">
+    <section
+      id="how"
+      className="relative border-y border-border/50 bg-gradient-to-b from-secondary/40 to-background"
+    >
       <div className="mx-auto max-w-7xl px-6 py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">How it works</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">
+            How it works
+          </p>
           <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Three steps to peace of mind</h2>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -247,58 +322,36 @@ function HowItWorks() {
   );
 }
 
-const testimonials = [
-  { name: "Sarah M.", role: "Caregiver", quote: "Finally I can breathe. When mom misses a dose, I know instantly. This app is a lifesaver." },
-  { name: "Dr. Amit K.", role: "Physician", quote: "I recommend MediCare AI to every patient with chronic conditions. Adherence has improved dramatically." },
-  { name: "James T.", role: "Patient", quote: "The AI assistant explains my medicines better than any pamphlet. Beautiful and thoughtful design." },
-];
-
-function Testimonials() {
-  return (
-    <section id="testimonials" className="mx-auto max-w-7xl px-6 py-24">
-      <div className="mx-auto max-w-2xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-primary">Loved by families</p>
-        <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Real people, real care</h2>
-      </div>
-      <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
-        {testimonials.map((t, i) => (
-          <motion.blockquote
-            key={t.name}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="rounded-3xl glass p-7"
-          >
-            <p className="text-base leading-relaxed text-foreground">&ldquo;{t.quote}&rdquo;</p>
-            <footer className="mt-5 flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-primary to-gold text-primary-foreground font-semibold">
-                {t.name.charAt(0)}
-              </div>
-              <div>
-                <p className="text-sm font-semibold">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
-              </div>
-            </footer>
-          </motion.blockquote>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 const faqs = [
-  { q: "Is MediCare AI free to start?", a: "Yes. Create an account and add your first medicines free — premium family features come later." },
-  { q: "How do reminders work?", a: "We send browser push notifications, email, and in-app reminders at your scheduled times." },
-  { q: "Can caregivers get alerts?", a: "Yes. Add emergency contacts and they'll be notified if a critical dose is missed by over 30 minutes." },
-  { q: "Is my health data secure?", a: "Every record is protected with row-level security. Only you and people you invite can see your data." },
-  { q: "Does the AI assistant give medical advice?", a: "The AI explains medicines and healthy habits. It does not replace your doctor — always confirm changes with a professional." },
+  {
+    q: "Is MediCare AI free to use?",
+    a: "Yes. The current web application lets you create an account, manage medicines, and track doses without a subscription.",
+  },
+  {
+    q: "How do reminders work?",
+    a: "After you allow browser notifications, the open dashboard schedules a notification for each upcoming medicine time. Keep a separate alarm for critical medicines.",
+  },
+  {
+    q: "Can I record several doses per day?",
+    a: "Yes. Add multiple 24-hour times separated by commas, for example 08:00, 14:00, 20:00.",
+  },
+  {
+    q: "Is my health data secure?",
+    a: "Medicine records are protected by Supabase authentication and row-level policies that restrict access to the signed-in owner.",
+  },
+  {
+    q: "Does the safety assistant give medical advice?",
+    a: "No. It summarizes your saved schedule and directs medicine-specific, interaction, and symptom questions to a pharmacist or doctor.",
+  },
 ];
 
 function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="relative border-y border-border/50 bg-gradient-to-b from-background to-secondary/30">
+    <section
+      id="faq"
+      className="relative border-y border-border/50 bg-gradient-to-b from-background to-secondary/30"
+    >
       <div className="mx-auto max-w-3xl px-6 py-24">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">FAQ</p>
@@ -312,7 +365,9 @@ function FAQ() {
                 className="flex w-full items-center justify-between gap-4 p-5 text-left"
               >
                 <span className="font-semibold">{f.q}</span>
-                <ChevronDown className={`h-5 w-5 shrink-0 text-muted-foreground transition-transform ${open === i ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`h-5 w-5 shrink-0 text-muted-foreground transition-transform ${open === i ? "rotate-180" : ""}`}
+                />
               </button>
               <motion.div
                 initial={false}
@@ -331,25 +386,61 @@ function FAQ() {
 }
 
 function Contact() {
+  const submitIssue = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const name = String(form.get("name") || "").trim();
+    const email = String(form.get("email") || "").trim();
+    const message = String(form.get("message") || "").trim();
+    const body = [`From: ${name}`, `Reply email: ${email}`, "", message].join("\n");
+    const url = `https://github.com/patilpushpraj39-lang/medicare-reminder-ai/issues/new?title=${encodeURIComponent("MediCare AI support request")}&body=${encodeURIComponent(body)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
   return (
     <section id="contact" className="mx-auto max-w-7xl px-6 py-24">
       <div className="grid gap-10 rounded-[2.5rem] glass p-8 md:p-14 lg:grid-cols-2">
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Contact</p>
-          <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Talk to our care team</h2>
-          <p className="mt-4 text-muted-foreground">We're here to help you set up reminders, connect caregivers, or answer any questions.</p>
+          <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Get project support</h2>
+          <p className="mt-4 text-muted-foreground">
+            Report a bug, request an improvement, or ask for help using the medication dashboard.
+          </p>
           <ul className="mt-8 space-y-4 text-sm">
-            <li className="flex items-center gap-3"><Mail className="h-4 w-4 text-primary" /> hello@medicare-ai.app</li>
-            <li className="flex items-center gap-3"><Phone className="h-4 w-4 text-primary" /> +1 (555) 010-2024</li>
-            <li className="flex items-center gap-3"><MapPin className="h-4 w-4 text-primary" /> Available worldwide</li>
+            <li>
+              <a
+                className="flex items-center gap-3 text-primary hover:underline"
+                href="https://github.com/patilpushpraj39-lang/medicare-reminder-ai"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Github className="h-4 w-4" /> View the open-source project on GitHub
+              </a>
+            </li>
           </ul>
         </div>
-        <form className="grid gap-4" onSubmit={(e) => e.preventDefault()}>
-          <input className="rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none transition-colors focus:border-primary" placeholder="Your name" />
-          <input type="email" className="rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-primary" placeholder="Email address" />
-          <textarea rows={4} className="rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-primary" placeholder="How can we help?" />
+        <form className="grid gap-4" onSubmit={submitIssue}>
+          <input
+            name="name"
+            required
+            className="rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+            placeholder="Your name"
+          />
+          <input
+            name="email"
+            type="email"
+            required
+            className="rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-primary"
+            placeholder="Email address"
+          />
+          <textarea
+            name="message"
+            required
+            rows={4}
+            className="rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-primary"
+            placeholder="How can we help?"
+          />
           <button className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30">
-            Send message <ArrowRight className="h-4 w-4" />
+            Open support request <ArrowRight className="h-4 w-4" />
           </button>
         </form>
       </div>
@@ -365,13 +456,25 @@ function Footer() {
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-primary to-primary/70 text-primary-foreground">
             <Pill className="h-4 w-4" />
           </span>
-          <span className="font-display font-bold">MediCare<span className="text-gold"> AI</span></span>
+          <span className="font-display font-bold">
+            MediCare<span className="text-gold"> AI</span>
+          </span>
         </div>
-        <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} MediCare Reminder AI. Care, beautifully organized.</p>
+        <p className="text-xs text-muted-foreground">
+          © {new Date().getFullYear()} MediCare Reminder AI. Care, beautifully organized.
+        </p>
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
-          <a href="#" className="hover:text-foreground">Privacy</a>
-          <a href="#" className="hover:text-foreground">Terms</a>
-          <a href="#contact" className="hover:text-foreground">Contact</a>
+          <a
+            href="https://github.com/patilpushpraj39-lang/medicare-reminder-ai"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-foreground"
+          >
+            Source
+          </a>
+          <a href="#contact" className="hover:text-foreground">
+            Contact
+          </a>
         </div>
       </div>
     </footer>
@@ -386,7 +489,6 @@ function Landing() {
         <Hero />
         <Features />
         <HowItWorks />
-        <Testimonials />
         <FAQ />
         <Contact />
       </main>

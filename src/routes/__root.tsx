@@ -115,9 +115,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "MediCare Reminder AI — Never Miss Your Medicine Again" },
-      { name: "description", content: "AI-powered medicine reminders with smart notifications, caregiver alerts, health tracking, and medication history." },
+      {
+        name: "description",
+        content:
+          "Private medicine schedules, browser reminders, dose tracking, and adherence history.",
+      },
       { property: "og:title", content: "MediCare Reminder AI" },
-      { property: "og:description", content: "AI-powered medicine reminders with smart notifications and caregiver alerts." },
+      {
+        property: "og:description",
+        content: "Private medicine schedules, browser reminders, and dose tracking.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -129,7 +136,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: `${BASE_PATH}favicon.ico`, type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
