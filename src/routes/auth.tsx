@@ -42,9 +42,18 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const { mode } = useSearch({ from: "/auth" });
+  const { mode: requestedMode } = useSearch({ from: "/auth" });
   const navigate = useNavigate();
+  const [hydrated, setHydrated] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // The static GitHub Pages build prerenders `/auth` without a query string.
+  // Match that markup during hydration, then apply the requested mode.
+  const mode = hydrated ? requestedMode : undefined;
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
