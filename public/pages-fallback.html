@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Redirecting — MediCare Reminder AI</title>
+    <script>
+      const basePath = "/medicare-reminder-ai/";
+      const dashboardPath = `${basePath}dashboard`;
+      const destination = window.location.pathname.startsWith(dashboardPath)
+        ? `${basePath}auth/`
+        : basePath;
+      window.location.replace(destination);
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to MediCare Reminder AI…</p>
+  </body>
+</html>

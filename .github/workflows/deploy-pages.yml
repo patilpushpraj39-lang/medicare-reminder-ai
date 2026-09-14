@@ -47,10 +47,10 @@ jobs:
           if [ ! -f "dist/client/index.html" ] && [ -f "dist/client/_shell.html" ]; then
             cp dist/client/_shell.html dist/client/index.html
           fi
-          if [ -f "dist/client/_shell.html" ]; then
+          if [ -f "dist/client/pages-fallback.html" ]; then
+            cp dist/client/pages-fallback.html dist/client/404.html
+          elif [ -f "dist/client/_shell.html" ]; then
             cp dist/client/_shell.html dist/client/404.html
-          elif [ -f "dist/client/index.html" ]; then
-            cp dist/client/index.html dist/client/404.html
           else
             echo "No generated SPA HTML file found in dist/client"
             find dist -maxdepth 3 -type f | sort
