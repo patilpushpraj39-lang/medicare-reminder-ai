@@ -14,6 +14,16 @@ const searchSchema = z.object({
 
 type AuthSearch = { mode?: "signin" | "signup" | "forgot" };
 
+function getAuthErrorMessage(error: unknown): string {
+  const message = error instanceof Error ? error.message : "Something went wrong";
+
+  if (/failed to fetch|networkerror|load failed/i.test(message)) {
+    return "The secure account service is temporarily unavailable. Please try again in a moment.";
+  }
+
+  return message;
+}
+
 export const Route = createFileRoute("/auth")({
   validateSearch: (s): AuthSearch => searchSchema.parse(s),
   head: () => ({
@@ -79,7 +89,7 @@ function AuthPage() {
         navigate({ to: "/dashboard" });
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
+      toast.error(getAuthErrorMessage(err));
     } finally {
       setLoading(false);
     }
